@@ -1,0 +1,7 @@
+﻿  Print.cpp
+F:\chinesechess\Game\Game\Print.cpp(1188,1): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\conio.h(453): message : 請參閱 'getch' 的宣告
+F:\chinesechess\Game\Game\Print.cpp(1191,1): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\conio.h(453): message : 請參閱 'getch' 的宣告
+F:\chinesechess\Game\Game\Print.cpp(1513,34): warning C4267: '=': 將 'size_t' 轉換為 'int'，資料可能遺失
+  Game.vcxproj -> F:\chinesechess\Game\x64\Debug\Game.exe
