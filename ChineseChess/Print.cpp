@@ -1,10 +1,12 @@
 #include"Print.h"
+// 設定輸出彩色的文字
 void SetColor(int color)
 {
 	HANDLE hConsole;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, color);
 }
+// 獲取鍵盤位置
 void gotoxy(int xpos, int ypos)
 {
 	COORD scrn;
@@ -1322,13 +1324,16 @@ void play()
 	ChessBoard cb;
 	vector<Coordinate> move;
 	vector<Coordinate> eat;
-	gotoxy(x, y);
+	gotoxy(x, y); //設定鍵盤的位置
+
+	// 利用while讓程式不會退出，並且可以一直下指令
 	while (1)
 	{
+		// 檢查是否聽牌,
 		if (cb.isChampion() > 0)
 		{
 			check = 1;
-			PrintCheck(cb.isChampion());
+			PrintCheck(cb.isChampion());  // 印出聽牌訊號
 			gotoxy(x, y);
 		}
 		else
@@ -1341,11 +1346,11 @@ void play()
 				gotoxy(x, y);
 			}
 		}
-		ch = _getch();
-		if (ch == -32)
+		ch = _getch(); // 獲取鍵盤輸入的英文字，轉換成ASCII
+		if (ch == -32) // 判斷是否為上下左右
 		{
 			ch = _getch();
-			switch (ch)
+			switch (ch) // 上下左右
 			{
 			case 72:
 			{
