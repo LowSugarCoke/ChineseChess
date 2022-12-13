@@ -1,10 +1,17 @@
 #pragma once
-#include"other.h"
+
 #include<vector>
 #include<fstream>
 #include<string>
 #include<iostream>
+
+#include"database.h"
+#include "log.h"
+#include "coordinate.h"
+#include "ary.h"
+
 using namespace std;
+
 class ChessBoard
 {
 public:
@@ -18,4 +25,3 @@ public:
 	int isChampion();
 	int isWin();
 };
-

@@ -1,20 +1,55 @@
-#include"Print.h"
+#include"print.h"
+
+static int page = 0;
+static int first = 1;
+static vector<string> LeftLog;
+static vector<string> RegretLog;
+static vector<Ary> LeftAry;
+static vector<Ary> RegretAry;
+static char outPut[24][180] =
+{
+	"שÝ שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שß",//0
+	"שרשÝ שש  ¾װ  ×p  ֵד  ¥Ü שש שß ¢°  ¢±  ¢²  ¢³  ¢´  ¢µ  ¢¶  ¢·  ¢¸ שÝ שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שß שר",//1
+	"שרשר                     שר שÝ שש שÞ שש שÞ שש שÞ שש שÞ שש שÞ שש שÞ שש שÞ שש שß  שר                                   שר שר",//2
+	"שרשר                     שר שר   ¡U  ¡U  ¡U¢@¡U¡‏¡U  ¡U  ¡U  שר  שר                                   שר שר",//3
+	"שרשר                     שר שר ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w שר  שר                                   שר שר",//4
+	"שרשר                     שר שר   ¡U  ¡U  ¡U¡‏¡U¢@¡U  ¡U  ¡U  שר  שר                                   שר שר",//5
+	"שרשר                     שר שר ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w שר  שר                                   שר שר",//6
+	"שרשר                     שר שר   ¡U  ¡U  ¡U  ¡U  ¡U  ¡U  ¡U  שר  שר                                   שר שר",//7
+	"שרשר                     שר שר ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w שר  שר                                   שר שר",//8
+	"שרשר                     שר שר   ¡U  ¡U  ¡U  ¡U  ¡U  ¡U  ¡U  שר  שר                                   שר שר",//9
+	"שרשר                     שר שר ¢w ¢r ¢w ¢r ¢w ¢r ¢w ¢r ¢w ¢r ¢w ¢r ¢w ¢r ¢w שר  שר                                   שר שר",//10
+	"שרשר                     שר שר     ·¡×e             ÷~¬ֹ     שר  שר                                   שר שר",//11
+	"שרשר                     שר שר ¢w ¢s ¢w ¢s ¢w ¢s ¢w ¢s ¢w ¢s ¢w ¢s ¢w ¢s ¢w שר  שר                                   שר שר",
+	"שרשר                     שר שר   ¡U  ¡U  ¡U  ¡U  ¡U  ¡U  ¡U  שר  שר                                   שר שר",
+	"שרשר                     שר שר ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w שר  שא שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שג שר",
+	"שרשר                     שר שר   ¡U  ¡U  ¡U  ¡U  ¡U  ¡U  ¡U  שר  שר        Esc ¿ן³ז       h ְ°§U      שר שר",
+	"שרשר                     שר שר ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w שר  שר                                   שר שר",
+	"שרשר                     שר שר   ¡U  ¡U  ¡U¢@¡U¡‏¡U  ¡U  ¡U  שר  שר          Enter    ¿ן¨ת´ׁ₪l        שר שר",
+	"שרשר                     שר שר ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w ¢q ¢w שר  שר                                   שר שר",
+	"שרשר                     שר שר   ¡U  ¡U  ¡U¡‏¡U¢@¡U  ¡U  ¡U  שר  שר         ¡פ                        שר שר",
+	"שרשר                     שר שד שש שה שש שה שש שה שש שה שש שה שש שה שש שה שש שו  שר       ¡צ  ¡ק  ₪ט¦Vֱה±±¨מ´ו¼׀      שר שר",
+	"שרשר                     שר ₪E  ₪K  ₪C  ₪»  ₪­  ¥|  ₪T  ₪G  ₪@ שר         ¡ץ                        שר שר",
+	"שרשד שש שש שש שש שש שש שש שש שש שש שו                                    שד שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שו שר",
+	"שד שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שו"
+};
+
 // ³]©w¿י¥X±m¦ג×÷₪ו¦r
-void SetColor(int color)
+void Print::SetColor(int color)
 {
 	HANDLE hConsole;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, color);
 }
 // ְע¨תֱה½L¦ל¸m
-void gotoxy(int xpos, int ypos)
+void Print::gotoxy(int xpos, int ypos)
 {
 	COORD scrn;
 	HANDLE hOuput = GetStdHandle(STD_OUTPUT_HANDLE);
 	scrn.X = xpos; scrn.Y = ypos;
 	SetConsoleCursorPosition(hOuput, scrn);
 }
-void turnToChess(int i, int k)
+void Print::turnToChess(int i, int k)
 {
 	if (k != 0)
 	{
@@ -25,7 +60,7 @@ void turnToChess(int i, int k)
 	returnChess(chessBoard[i][k]);
 	SetColor();
 }
-void returnChess(int i)
+void Print::returnChess(int i)
 {
 	switch (i % 7)
 	{
@@ -73,19 +108,19 @@ void returnChess(int i)
 	}
 	}
 }
-void PrintAllLine(int a, int b)
+void Print::PrintAllLine(int a, int b)
 {
 	for (int j = 0; j < b; j++) cout << outPut[a][j];
 	cout << endl;
 }
 // i ¦C¼ֶ a~b¬°¦³ֳC¦ג color ¬°¦ג½X
-void PrintColorLine(int i, int a, int b, int color)
+void Print::PrintColorLine(int i, int a, int b, int color)
 {
 	SetColor(color);
 	for (int j = a; j < b; j++) cout << outPut[i][j];
 	SetColor();
 }
-void PushLog(Log a)
+void Print::PushLog(Log a)
 {
 	string t;
 	t = "";
@@ -479,7 +514,7 @@ void PushLog(Log a)
 	//cout << t;
 	LeftLog.push_back(t);
 }
-void PrintLog(int page, int first)
+void Print::PrintLog(int page, int first)
 {
 	for (int i = 0; i < 20; i++)
 	{
@@ -512,7 +547,7 @@ void PrintLog(int page, int first)
 		cout << LeftLog[i][6] << LeftLog[i][7];
 	}
 }
-void PrintMove(vector<Coordinate> a)
+void Print::PrintMove(vector<Coordinate> a)
 {
 	int x, y;
 	for (int i = 0; i < a.size(); i++)
@@ -528,7 +563,7 @@ void PrintMove(vector<Coordinate> a)
 	}
 	SetColor();
 }
-void PrintEat(vector<Coordinate> a)
+void Print::PrintEat(vector<Coordinate> a)
 {
 	int x, y;
 	for (int i = 0; i < a.size(); i++)
@@ -545,7 +580,7 @@ void PrintEat(vector<Coordinate> a)
 	}
 	SetColor();
 }
-void PrintTurn(int i)
+void Print::PrintTurn(int i)
 {
 	gotoxy(69, 4);
 	SetColor(11);
@@ -564,7 +599,7 @@ void PrintTurn(int i)
 	cout << "₪U´ׁ";
 	SetColor();
 }
-void PrintChoose(int i)
+void Print::PrintChoose(int i)
 {
 	gotoxy(73, 7);
 	if (i == 0)
@@ -581,7 +616,7 @@ void PrintChoose(int i)
 		SetColor();
 	}
 }
-void PrintReturn()
+void Print::PrintReturn()
 {
 	if (RegretAry.size() < 1 || RegretLog.size() < 1) return;
 	int y = 38;
@@ -698,7 +733,7 @@ void PrintReturn()
 		gotoxy(y + 14 - 10 * yes, 13);
 	}
 }
-void PrintRegret()
+void Print::PrintRegret()
 {
 	if (LeftAry.size() < 1 || LeftLog.size() < 1) return;
 	int y = 38;
@@ -814,7 +849,7 @@ void PrintRegret()
 		gotoxy(y + 14 - 10 * yes, 13);
 	}
 }
-int PrintMenu()
+int Print::PrintMenu()
 {
 	int y = 41;
 	SetColor(9);
@@ -923,7 +958,7 @@ int PrintMenu()
 		}
 	}
 }
-void PrintHelp()
+void Print::PrintHelp()
 {
 	int y = 38;
 	SetColor(14);
@@ -962,7 +997,7 @@ void PrintHelp()
 		}
 	}
 }
-void PrintChessboard()
+void Print::PrintChessboard()
 {
 	gotoxy(25, 1);
 	PrintColorLine(1, 30, 64, 253);
@@ -977,7 +1012,7 @@ void PrintChessboard()
 	gotoxy(25, 21);
 	PrintColorLine(21, 28, 62, 253);
 }
-void PrintLeft()
+void Print::PrintLeft()
 {
 	gotoxy(1, 1);
 	for (int j = 2; j < 29; j++) cout << outPut[1][j];
@@ -989,7 +1024,7 @@ void PrintLeft()
 	gotoxy(1, 22);
 	for (int j = 2; j < 37; j++) cout << outPut[22][j];
 }
-void PrintRight()
+void Print::PrintRight()
 {
 	gotoxy(60, 1);
 	for (int j = 65; j < 124; j++) cout << outPut[1][j];
@@ -1014,7 +1049,7 @@ void PrintRight()
 	gotoxy(59, 22);
 	for (int j = 72; j < 132; j++) cout << outPut[22][j];
 }
-void Reset()
+void Print::Reset()
 {
 	fstream f1;
 	f1.open("Initial.txt", ios::in);
@@ -1037,7 +1072,7 @@ void Reset()
 	gotoxy(25, 2);
 	return;
 }
-void SaveFile()
+void Print::SaveFile()
 {
 	int y = 38;
 	SetColor(14);
@@ -1071,7 +1106,7 @@ void SaveFile()
 	PrintChessboard();
 	return;
 }
-void ReadFile()
+void Print::ReadFile()
 {
 	int y = 38;
 	SetColor(14);
@@ -1126,8 +1161,7 @@ void ReadFile()
 	return;
 }
 
-
-int PrintWin(int who)
+int Print::PrintWin(int who)
 {
 	if (who == 1) // ¬ץ₪טִ¹
 	{
@@ -1229,7 +1263,7 @@ int PrintWin(int who)
 		gotoxy(y + 14 - 10 * yes, x);
 	}
 }
-void PrintCheck(int who)
+void Print::PrintCheck(int who)
 {
 	int x, y;
 	x = 68;
@@ -1266,38 +1300,12 @@ void PrintCheck(int who)
 	cout << "₪w ³Q ±N ­x";
 	SetColor();
 }
-void blank()
+void Print::blank()
 {
 	cout << "                                                                                                                        ";
 }
 
-
-
-         
-         
-       
-        
-         
-          
-          
-            
-  
- 
-
-
- 
-  
-   
-    
-    
-      
-       
-        
-             
-                                                                                                
-
-
-void signboard()
+void Print::signboard()
 {
 	cout << endl;
 	cout << "          _____                _____                    _____                    _____ " << endl; Sleep(80); gotoxy(0, 1); blank();
@@ -1312,14 +1320,14 @@ void signboard()
 	cout << "  /:::/  |::|   | _____       |::|___|______    /:::/    / \:::\    \    /:::/    /" << endl; Sleep(80); gotoxy(0, 10); blank();
 	cout << "      _____" << endl; Sleep(80); gotoxy(0, 11); blank();
 	cout << " /:::/   |::|   |/\    \      /::::::::\    \  /:::/    /   \:::\    \  /:::/____/      /\    \ " << endl; Sleep(80); gotoxy(0, 12); blank();
-	cout << "/:: /    |::|   /::\____\    /::::::::::\____\/:::/____/     \:::\____\|:::|    /      /::\____\ " << endl; Sleep(80); gotoxy(0, 13); blank(); 
+	cout << "/:: /    |::|   /::\____\    /::::::::::\____\/:::/____/     \:::\____\|:::|    /      /::\____\ " << endl; Sleep(80); gotoxy(0, 13); blank();
 
-	cout << "\::/    /|::|  /:::/    /   /:::/~~~~/~~      \:::\    \      \::/    /|:::|____\     /:::/    / " << endl; Sleep(80); gotoxy(0, 14); blank();  
-	cout << " \/____/ |::| /:::/    /   /:::/    /          \:::\    \      \/____/  \:::\    \   /:::/    / " << endl; Sleep(80); gotoxy(0, 15); blank();  
-	cout << "         |::::::/    /   /:::/    /              \:::\    \               \:::\    /:::/    / " << endl; Sleep(80); gotoxy(0, 16); blank();  
-	cout << "         |:::::/    /    \::/    /                \:::\    \               \:::\__/:::/    / " << endl; Sleep(80); gotoxy(0, 17); blank();  
-	cout << "         |::::/    /      \/____/                  \:::\    \               \::::::::/    / " << endl; Sleep(80); gotoxy(0, 18); blank();  
-	cout << "         /:::/    /                                 \:::\    \               \::::::/    / " << endl; Sleep(80); gotoxy(0, 19); blank();  
+	cout << "\::/    /|::|  /:::/    /   /:::/~~~~/~~      \:::\    \      \::/    /|:::|____\     /:::/    / " << endl; Sleep(80); gotoxy(0, 14); blank();
+	cout << " \/____/ |::| /:::/    /   /:::/    /          \:::\    \      \/____/  \:::\    \   /:::/    / " << endl; Sleep(80); gotoxy(0, 15); blank();
+	cout << "         |::::::/    /   /:::/    /              \:::\    \               \:::\    /:::/    / " << endl; Sleep(80); gotoxy(0, 16); blank();
+	cout << "         |:::::/    /    \::/    /                \:::\    \               \:::\__/:::/    / " << endl; Sleep(80); gotoxy(0, 17); blank();
+	cout << "         |::::/    /      \/____/                  \:::\    \               \::::::::/    / " << endl; Sleep(80); gotoxy(0, 18); blank();
+	cout << "         /:::/    /                                 \:::\    \               \::::::/    / " << endl; Sleep(80); gotoxy(0, 19); blank();
 
 	cout << "        /:::/    /                                   \:::\____\               \::::/    / " << endl; Sleep(80); gotoxy(0, 20); blank();
 	cout << "        \::/    /                                     \::/    /                \::/____/ " << endl; Sleep(80); gotoxy(0, 21); blank();
@@ -1327,32 +1335,29 @@ void signboard()
 	gotoxy(0, 0);
 }
 
-
-
-
-void opening()
+void Print::opening()
 {
 	cout << endl;
-	cout << "          _____                _____                    _____                    _____ " << endl; Sleep(80); 
-	cout << "         /\\    \\              |\    \\                   /\\    \\                  /\\    \\ " << endl; Sleep(80); 
-	cout << "        /::\\____\\             |:\____\\                 /::\\    \\                /::\\____\\ " << endl; Sleep(80); 
-	cout << "       /::::|   |             |::|   |               /::::\\    \\              /:::/    /" << endl; Sleep(80); 
-	cout << "      /:::::|   |             |::|   |              /::::::\\    \\            /:::/    /" << endl; Sleep(80); 
-	cout << "     /::::::|   |             |::|   |             /:::/\\:::\\    \\          /:::/    /" << endl; Sleep(80); 
-	cout << "    /:::/|::|   |             |::|   |            /:::/  \\:::\\    \\        /:::/    / " << endl; Sleep(80); 
-	cout << "   /:::/ |::|   |             |::|   |           /:::/    \\:::\\    \\      /:::/    /" << endl; Sleep(80); 
-	cout << "  /:::/  |::|   | _____       |::|___|______    /:::/    / \\:::\\    \\    /:::/    /  _____" << endl; Sleep(80); 
-	cout << " /:::/   |::|   |/\\    \\      /::::::::\\    \\  /:::/    /   \\:::\\    \\  /:::/____/  /\\    \\ " << endl; Sleep(80); 
+	cout << "          _____                _____                    _____                    _____ " << endl; Sleep(80);
+	cout << "         /\\    \\              |\    \\                   /\\    \\                  /\\    \\ " << endl; Sleep(80);
+	cout << "        /::\\____\\             |:\____\\                 /::\\    \\                /::\\____\\ " << endl; Sleep(80);
+	cout << "       /::::|   |             |::|   |               /::::\\    \\              /:::/    /" << endl; Sleep(80);
+	cout << "      /:::::|   |             |::|   |              /::::::\\    \\            /:::/    /" << endl; Sleep(80);
+	cout << "     /::::::|   |             |::|   |             /:::/\\:::\\    \\          /:::/    /" << endl; Sleep(80);
+	cout << "    /:::/|::|   |             |::|   |            /:::/  \\:::\\    \\        /:::/    / " << endl; Sleep(80);
+	cout << "   /:::/ |::|   |             |::|   |           /:::/    \\:::\\    \\      /:::/    /" << endl; Sleep(80);
+	cout << "  /:::/  |::|   | _____       |::|___|______    /:::/    / \\:::\\    \\    /:::/    /  _____" << endl; Sleep(80);
+	cout << " /:::/   |::|   |/\\    \\      /::::::::\\    \\  /:::/    /   \\:::\\    \\  /:::/____/  /\\    \\ " << endl; Sleep(80);
 	cout << "/:: /    |::|   /::\\____\\    /::::::::::\\____\\/:::/____/     \\:::\\____\\|:::|    /  /::\\____\\ " << endl; Sleep(80);
 	cout << "\\::/    /|::|  /:::/    /   /:::/~~~~/~~      \\:::\\    \\      \::/    /|:::|____\\  /:::/    / " << endl; Sleep(80);
-	cout << " \\/____/ |::| /:::/    /   /:::/    /          \\:::\\    \\      \/____/ \\:::\\     \\/:::/    / " << endl; Sleep(80); 
-	cout << "         |:::::::/    /   /:::/    /            \\:::\\    \\             \\:::\\    /:::/    / " << endl; Sleep(80); 
-	cout << "         |::::::/    /    \\::/    /              \\:::\\    \\             \\:::\\__/:::/    / " << endl; Sleep(80); 
-	cout << "         |:::::/    /      \\/____/                \\:::\\    \\             \\::::::::/    / " << endl; Sleep(80); 
-	cout << "         /::::/    /                               \\:::\\    \\             \\::::::/    / " << endl; Sleep(80); 
-	cout << "        /::::/    /                                 \\:::\\____\\             \\::::/    / " << endl; Sleep(80); 
-	cout << "        \\:::/    /                                   \\::/    /              \\::/____/ " << endl; Sleep(80); 
-	cout << "         \\/_____/                                     \\/____/                ~~  " << endl; Sleep(80);	
+	cout << " \\/____/ |::| /:::/    /   /:::/    /          \\:::\\    \\      \/____/ \\:::\\     \\/:::/    / " << endl; Sleep(80);
+	cout << "         |:::::::/    /   /:::/    /            \\:::\\    \\             \\:::\\    /:::/    / " << endl; Sleep(80);
+	cout << "         |::::::/    /    \\::/    /              \\:::\\    \\             \\:::\\__/:::/    / " << endl; Sleep(80);
+	cout << "         |:::::/    /      \\/____/                \\:::\\    \\             \\::::::::/    / " << endl; Sleep(80);
+	cout << "         /::::/    /                               \\:::\\    \\             \\::::::/    / " << endl; Sleep(80);
+	cout << "        /::::/    /                                 \\:::\\____\\             \\::::/    / " << endl; Sleep(80);
+	cout << "        \\:::/    /                                   \\::/    /              \\::/____/ " << endl; Sleep(80);
+	cout << "         \\/_____/                                     \\/____/                ~~  " << endl; Sleep(80);
 	SetColor(12);
 	gotoxy(0, 25);
 	cout << "                                   --press s to start--                                    " << endl;
@@ -1365,7 +1370,7 @@ void opening()
 	}
 	system("cls");
 }
-void play()
+void Print::play()
 {
 	int maxPage = 0;
 	bool flag = false;
@@ -1400,7 +1405,7 @@ void play()
 			}
 		}
 		ch = _getch(); // ְע¨תֱה½L¿י₪J×÷­^₪ו¦r¡Aֲא´«¦¨·L³n©w¸q×÷¼ֶ¦r
-		if (ch == -32) // §Pֲ_¬O§_¬°₪W₪U¥×¥k 
+		if (ch == -32) // §Pֲ_¬O§_¬°₪W₪U¥×¥k
 		{
 			ch = _getch();
 			switch (ch) // ₪W₪U¥×¥k
@@ -1696,7 +1701,7 @@ void play()
 		}
 	}
 }
-void PrintChess(int i)
+void Print::PrintChess(int i)
 {
 	//28¶}©l
 	int s = 28;
@@ -1725,7 +1730,7 @@ void PrintChess(int i)
 	}
 	else turnToChess(i, 8);
 }
-void PrintScreen()
+void Print::PrintScreen()
 {
 	gotoxy(0, 0);
 	PrintAllLine(0, 149);

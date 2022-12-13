@@ -1,10 +1,11 @@
-#include"Print.h"
+#include"print.h"
 
 // 程式進入的位置
 int main()
 {
-	signboard(); // 初始畫面
-	opening();  // 開場畫面
-	PrintScreen();  //轉換成象棋的畫面
-	play(); // 開始玩象棋
+	Print gameGUI;
+	gameGUI.signboard(); // 初始畫面
+	gameGUI.opening();  // 開場畫面
+	gameGUI.PrintScreen();  //轉換成象棋的畫面
+	gameGUI.play(); // 開始玩象棋
 }

@@ -21,10 +21,7 @@
     <ClCompile Include="Backend.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="other.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Print.cpp">
+    <ClCompile Include="print.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,10 +29,19 @@
     <ClInclude Include="Backend.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="other.h">
+    <ClInclude Include="database.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Print.h">
+    <ClInclude Include="print.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="coordinate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

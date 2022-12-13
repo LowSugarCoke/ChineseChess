@@ -141,13 +141,15 @@
   <ItemGroup>
     <ClCompile Include="Backend.cpp" />
     <ClCompile Include="ChineseChess.cpp" />
-    <ClCompile Include="other.cpp" />
-    <ClCompile Include="Print.cpp" />
+    <ClCompile Include="print.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ary.h" />
     <ClInclude Include="Backend.h" />
-    <ClInclude Include="other.h" />
-    <ClInclude Include="Print.h" />
+    <ClInclude Include="coordinate.h" />
+    <ClInclude Include="log.h" />
+    <ClInclude Include="database.h" />
+    <ClInclude Include="print.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

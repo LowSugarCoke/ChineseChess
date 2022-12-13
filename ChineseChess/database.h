@@ -25,25 +25,4 @@ static int Initial_chessboard[10][9] =
  {0,0,0,0,0,0,0,0,0},
  {11,12,10,9,8,9,10,12,11}
 };
-__declspec(selectany) int turn = 1;
-class Coordinate 
-{
-public:
-	int x;
-	int y;
-};
-class Log
-{
-public:
-	int number;
-	Coordinate old;
-	Coordinate new1;
-};
-class Ary
-{
-public:
-	Ary(int a[10][9]);
-	int ary[10][9];
-	
-};
-
+static int turn = 1;
