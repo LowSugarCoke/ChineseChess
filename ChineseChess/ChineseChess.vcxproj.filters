@@ -15,18 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ChineseChess.cpp">
+    <ClCompile Include="chess_game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Backend.cpp">
+    <ClCompile Include="chinese_chess_backend.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="print.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="chess_backend.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Backend.h">
+    <ClInclude Include="chinese_chess_backend.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="database.h">
@@ -42,6 +45,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="abstract_backend.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="chess_backend.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

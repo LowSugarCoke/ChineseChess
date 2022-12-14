@@ -1,6 +1,7 @@
-#include "Backend.h"
+#include "chinese_chess_backend.h"
 
-ChessBoard::ChessBoard()
+ChineseChessBackend::ChineseChessBackend() :
+	AbstractBackend()
 {
 	int a[10][9] =
 	{
@@ -19,15 +20,16 @@ ChessBoard::ChessBoard()
 	chessLog.push_back(ary);
 }
 
-ChessBoard::ChessBoard(string name)
+ChineseChessBackend::ChineseChessBackend(string name)
+	:AbstractBackend()
 {
 }
 
-void ChessBoard::saveFile(string name)
+void ChineseChessBackend::saveFile(string name)
 {
 }
 
-vector<Coordinate> ChessBoard::getMovable(int x, int y, int option)
+vector<Coordinate> ChineseChessBackend::getMovable(int x, int y, int option)
 {
 	if (option == 0 || option == 1)
 	{
@@ -636,7 +638,6 @@ vector<Coordinate> ChessBoard::getMovable(int x, int y, int option)
 					h.push_back(t);
 				}
 			}
-
 		}
 		if (chessBoard[x][y + 1] == 0)
 		{
@@ -670,7 +671,6 @@ vector<Coordinate> ChessBoard::getMovable(int x, int y, int option)
 					h.push_back(t);
 				}
 			}
-
 		}
 		if (chessBoard[x][y - 1] == 0)
 		{
@@ -704,14 +704,13 @@ vector<Coordinate> ChessBoard::getMovable(int x, int y, int option)
 					h.push_back(t);
 				}
 			}
-
 		}
 		break;
 
 	case 3:
 		if (x + 2 < 5 && y + 2 < 9)
 		{
-			if (chessBoard[x + 1][y + 1] == 0) 
+			if (chessBoard[x + 1][y + 1] == 0)
 			{
 				if (chessBoard[x + 2][y + 2] == 0)
 				{
@@ -725,11 +724,11 @@ vector<Coordinate> ChessBoard::getMovable(int x, int y, int option)
 					t.y = y + 2;
 					h.push_back(t);
 				}
-			}			
+			}
 		}
 		if (x - 2 > -1 && y + 2 < 9)
 		{
-			if (chessBoard[x - 1][y + 1] == 0) 
+			if (chessBoard[x - 1][y + 1] == 0)
 			{
 				if (chessBoard[x - 2][y + 2] == 0)
 				{
@@ -744,11 +743,10 @@ vector<Coordinate> ChessBoard::getMovable(int x, int y, int option)
 					h.push_back(t);
 				}
 			}
-			
 		}
 		if (x + 2 < 5 && y - 2 > -1)
 		{
-			if (chessBoard[x + 1][y - 1] == 0) 
+			if (chessBoard[x + 1][y - 1] == 0)
 			{
 				if (chessBoard[x + 2][y - 2] == 0)
 				{
@@ -762,11 +760,11 @@ vector<Coordinate> ChessBoard::getMovable(int x, int y, int option)
 					t.y = y - 2;
 					h.push_back(t);
 				}
-			}			
+			}
 		}
 		if (x - 2 > -1 && y - 2 > -1)
 		{
-			if (chessBoard[x - 1][y - 1] == 0) 
+			if (chessBoard[x - 1][y - 1] == 0)
 			{
 				if (chessBoard[x - 2][y - 2] == 0)
 				{
@@ -780,13 +778,13 @@ vector<Coordinate> ChessBoard::getMovable(int x, int y, int option)
 					t.y = y - 2;
 					h.push_back(t);
 				}
-			}			
+			}
 		}
 		break;
 	case 10:
 		if (x + 2 < 10 && y + 2 < 9)
 		{
-			if (chessBoard[x + 1][y + 1] == 0) 
+			if (chessBoard[x + 1][y + 1] == 0)
 			{
 				if (chessBoard[x + 2][y + 2] == 0)
 				{
@@ -800,11 +798,11 @@ vector<Coordinate> ChessBoard::getMovable(int x, int y, int option)
 					t.y = y + 2;
 					h.push_back(t);
 				}
-			}			
+			}
 		}
 		if (x - 2 > 4 && y + 2 < 9)
 		{
-			if (chessBoard[x - 1][y + 1] == 0) 
+			if (chessBoard[x - 1][y + 1] == 0)
 			{
 				if (chessBoard[x - 2][y + 2] == 0)
 				{
@@ -818,11 +816,11 @@ vector<Coordinate> ChessBoard::getMovable(int x, int y, int option)
 					t.y = y + 2;
 					h.push_back(t);
 				}
-			}			
+			}
 		}
 		if (x + 2 < 10 && y - 2 > -1)
 		{
-			if (chessBoard[x + 1][y - 1] == 0) 
+			if (chessBoard[x + 1][y - 1] == 0)
 			{
 				if (chessBoard[x + 2][y - 2] == 0)
 				{
@@ -836,11 +834,11 @@ vector<Coordinate> ChessBoard::getMovable(int x, int y, int option)
 					t.y = y - 2;
 					h.push_back(t);
 				}
-			}			
+			}
 		}
 		if (x - 2 > 4 && y - 2 > -1)
 		{
-			if (chessBoard[x - 1][y - 1] == 0) 
+			if (chessBoard[x - 1][y - 1] == 0)
 			{
 				if (chessBoard[x - 2][y - 2] == 0)
 				{
@@ -854,18 +852,16 @@ vector<Coordinate> ChessBoard::getMovable(int x, int y, int option)
 					t.y = y - 2;
 					h.push_back(t);
 				}
-			}			
+			}
 		}
 		break;
 	}
 	if (option == 0)return v;
 	else return h;
 
-
-
 	return vector<Coordinate>();
 }
-void ChessBoard::print()
+void ChineseChessBackend::print()
 {
 	int k = 0;
 	for (int i = 0; i < 10; i++)
@@ -890,7 +886,7 @@ void ChessBoard::print()
 		cout << endl;
 	}
 }
-int ChessBoard::eatable(int a, int b)
+int ChineseChessBackend::eatable(int a, int b)
 {
 	if (a == 7 && b == 7)return 0;
 	if (a < 8 && b > 7)return 1;
@@ -901,7 +897,7 @@ int ChessBoard::eatable(int a, int b)
 //無勝負 傳回 0
 //紅方勝 傳回 1
 //黑方勝 傳回 2
-int ChessBoard::isChampion()
+int ChineseChessBackend::isChampion()
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -929,7 +925,7 @@ int ChessBoard::isChampion()
 //無勝負 傳回 0
 //紅方勝 傳回 1
 //黑方勝 傳回 2
-int ChessBoard::isWin()
+int ChineseChessBackend::isWin()
 {
 	int flag1 = 0;
 	int flag2 = 0;
@@ -955,4 +951,3 @@ int ChessBoard::isWin()
 	}
 	return 0;
 }
-

@@ -34,6 +34,10 @@ static char outPut[24][180] =
 	"שד שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שו"
 };
 
+Print::Print(AbstractBackend* backend) {
+	mBackend = backend;
+}
+
 // ³]©w¿י¥X±m¦ג×÷₪ו¦r
 void Print::SetColor(int color)
 {
@@ -1379,7 +1383,6 @@ void Print::play()
 	int x = 25, y = 2;
 	int check = 0;
 	Coordinate _old;
-	ChessBoard cb;
 	vector<Coordinate> move;
 	vector<Coordinate> eat;
 	gotoxy(x, y); //³]©wֱה½L×÷¦ל¸m
@@ -1388,10 +1391,10 @@ void Print::play()
 	while (1)
 	{
 		// ְֻ¬d¬O§_ֵ¥µP,
-		if (cb.isChampion() > 0)
+		if (mBackend->isChampion() > 0)
 		{
 			check = 1;
-			PrintCheck(cb.isChampion());  // ¦L¥Xֵ¥µP°T¸¹
+			PrintCheck(mBackend->isChampion());  // ¦L¥Xֵ¥µP°T¸¹
 			gotoxy(x, y);
 		}
 		else
@@ -1525,11 +1528,11 @@ void Print::play()
 						break;
 					}
 				}
-				if (cb.isWin() > 0 || flg == 1)
+				if (mBackend->isWin() > 0 || flg == 1)
 				{
 					if (flg == 0)
 					{
-						if (PrintWin(cb.isWin()) == 0)//₪£×±₪F
+						if (PrintWin(mBackend->isWin()) == 0)//₪£×±₪F
 						{
 							system("cls");
 							return;
@@ -1603,10 +1606,10 @@ void Print::play()
 				PrintChessboard();
 				PrintChoose(chessBoard[(y - 2) / 2][(x - 25) / 4]);
 				move.clear();
-				move = cb.getMovable(y, x, 0);
+				move = mBackend->getMovable(y, x, 0);
 				PrintMove(move);
 				eat.clear();
-				eat = cb.getMovable(y, x, 1);
+				eat = mBackend->getMovable(y, x, 1);
 				PrintEat(eat);
 				gotoxy(x, y);
 			}
@@ -1653,10 +1656,10 @@ void Print::play()
 		else if (ch == 114)//r ֵ×ְֹ
 		{
 			ReadFile();
-			if (cb.isChampion() > 0)
+			if (mBackend->isChampion() > 0)
 			{
 				check = 1;
-				PrintCheck(cb.isChampion());
+				PrintCheck(mBackend->isChampion());
 				gotoxy(x, y);
 			}
 			else

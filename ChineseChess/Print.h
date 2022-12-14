@@ -1,14 +1,27 @@
 #pragma once
+
 #include<iostream>
-#include<windows.h>
 #include<vector>
-#include<conio.h>
 #include<string>
-#include"Backend.h"
+
+#include<conio.h>
+#include<windows.h>
+
+#include "chinese_chess_backend.h"
+#include "chess_backend.h"
+
 using namespace std;
 
 class Print {
 public:
+	Print(AbstractBackend* backend);
+	void signboard();
+	void opening();
+	void play();
+	void PrintScreen();
+
+private:
+	AbstractBackend* mBackend;
 	void SetColor(int color = 7);
 	void gotoxy(int xpos, int ypos);
 	void turnToChess(int i, int k);
@@ -35,9 +48,5 @@ public:
 	int PrintWin(int who);
 	void PrintCheck(int who);
 	void blank();
-	void signboard();
-	void opening();
-	void play();
-	void PrintScreen();
 	void Reset();
 };

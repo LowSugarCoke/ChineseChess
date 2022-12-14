@@ -139,13 +139,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Backend.cpp" />
-    <ClCompile Include="ChineseChess.cpp" />
+    <ClCompile Include="chess_backend.cpp" />
+    <ClCompile Include="chinese_chess_backend.cpp" />
+    <ClCompile Include="chess_game.cpp" />
     <ClCompile Include="print.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="abstract_backend.h" />
     <ClInclude Include="ary.h" />
-    <ClInclude Include="Backend.h" />
+    <ClInclude Include="chess_backend.h" />
+    <ClInclude Include="chinese_chess_backend.h" />
     <ClInclude Include="coordinate.h" />
     <ClInclude Include="log.h" />
     <ClInclude Include="database.h" />
