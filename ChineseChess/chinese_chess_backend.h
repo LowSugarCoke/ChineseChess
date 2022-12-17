@@ -21,6 +21,7 @@ public:
 	virtual int isChampion() override;
 	virtual int isWin() override;
 
+
 private:
 	vector<Ary> chessLog;
 };

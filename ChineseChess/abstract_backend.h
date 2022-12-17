@@ -2,7 +2,6 @@
 
 #include"database.h"
 #include "log.h"
-#include "coordinate.h"
 #include "ary.h"
 
 using namespace std;

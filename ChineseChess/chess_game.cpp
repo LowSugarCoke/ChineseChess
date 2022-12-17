@@ -1,5 +1,6 @@
 #include"print.h"
-
+#include "chinese_chess_backend.h"
+#include "chess_backend.h"
 // 程式進入的位置
 int main()
 {
